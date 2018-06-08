@@ -1,0 +1,72 @@
+group 'ru.itpark'
+version '1.0-SNAPSHOT'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.2'
+    }
+}
+apply plugin: 'org.junit.platform.gradle.plugin'
+apply plugin: 'idea'
+apply plugin: 'java'
+
+sourceCompatibility = 9
+
+//if you uncomment this, then comment 45-58
+//buildscript {
+//    repositories {
+//        maven {
+//            url "https://plugins.gradle.org/m2/"
+//        }
+//    }
+//    dependencies {
+//        classpath "com.github.jengelman.gradle.plugins:shadow:2.0.2"
+//    }
+//}
+//apply plugin: "com.github.johnrengelman.shadow"
+//jar {
+//    manifest {
+//        attributes 'Main-Class': 'ru.itpark.Main'
+//    }
+//}
+//shadowJar {
+//    copy {
+//        from 'db.sqlite', 'jdbc.default.properties'
+//        into 'build/libs'
+//    }
+//}
+
+// if you uncomment this then comment 15-36
+//apply plugin: 'application'
+//
+//mainClassName = 'ru.itpark.Main'
+//
+//distributions {
+//    main {
+//        contents {
+//            into 'bin', {
+//                from 'db.sqlite', 'jdbc.default.properties'
+//            }
+//        }
+//    }
+//}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile 'org.junit.jupiter:junit-jupiter-api:latest.release' // bad idea
+    testCompile 'org.junit.jupiter:junit-jupiter-params:5.1.0-M1'
+    testCompile 'org.springframework:spring-test:5.0.2.RELEASE'
+    testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.0.2'
+    compile 'org.springframework:spring-context:5.0.2.RELEASE'
+    compile 'org.springframework:spring-jdbc:5.0.2.RELEASE'
+    compile 'org.codehaus.groovy:groovy-all:3.0.0-alpha-1'
+    compile 'javax.xml.bind:jaxb-api:2.3.0'
+    compile 'org.xerial:sqlite-jdbc:3.21.0.1'
+    compile 'com.h2database:h2:1.4.196'
+}

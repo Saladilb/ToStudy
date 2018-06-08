@@ -1,0 +1,94 @@
+group 'ru.itpark'
+version '1.0-SNAPSHOT'
+
+//apply plugin: 'groovy'
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+//project.task('sample')
+//project.task 'sample'
+//task 'sample'
+
+// uncomment for sample demo
+//task sample
+//sample.group = 'custom'
+//sample.doFirst {
+//    println 'do First'
+//}
+//sample.doLast {
+//    println 'do Last'
+//}
+
+task basic { // delegate to basic
+    group 'advanced'
+    doFirst {
+        println 'do first in basic'
+    }
+    doLast {
+        println 'do last in basic'
+    }
+}
+
+basic {
+    doFirst {
+        println 'added later'
+    }
+    doLast {
+        println 'added later'
+    }
+}
+
+task first {
+    group 'advanced'
+    doLast {
+        println 'first'
+    }
+}
+
+task common {
+    group 'advanced'
+    dependsOn 'dependent', 'first'
+}
+
+task dependent {
+    group 'advanced'
+    finalizedBy 'finalyzer'
+    shouldRunAfter 'first'
+    doLast {
+        println 'dependent'
+    }
+}
+
+task finalyzer {
+    group 'advanced'
+    doLast {
+        println 'finalyzer'
+    }
+}
+
+class CustomTask extends DefaultTask {
+    def prop
+
+    @TaskAction
+    def action() {
+        println prop
+    }
+}
+
+task custom(type: CustomTask) {
+    prop 'wow custom task'
+}
+
+task copySample(type: Copy) {
+
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.codehaus.groovy:groovy-all:2.3.11'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
